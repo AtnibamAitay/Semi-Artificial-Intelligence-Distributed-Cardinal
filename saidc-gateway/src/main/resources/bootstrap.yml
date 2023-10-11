@@ -1,0 +1,30 @@
+server:
+  port: 6500
+
+spring:
+  application:
+    name: saidc-gateway
+  profiles:
+    active: dev
+  main:
+    web-application-type: reactive
+
+  cloud:
+    nacos:
+      server-addr: ip:port
+      discovery:
+        namespace: 09b73c2d-c1c4-441f-96da-ca528338c42a
+      config:
+        # 配置中心地址
+        server-addr: ip:port
+        # 配置文件格式
+        file-extension: yml
+        extension-configs:
+          - dataId: saidc-gateway-application-dev.yml
+            group: DEFAULT_GROUP
+        # 共享配置
+        shared-configs:
+          - dataId: saidc-share-application-dev.yml
+            group: DEFAULT_GROUP
+        # 命名空间
+        namespace: 09b73c2d-c1c4-441f-96da-ca528338c42a

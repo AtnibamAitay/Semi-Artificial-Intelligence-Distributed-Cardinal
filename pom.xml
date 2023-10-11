@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.4</version>
+    </parent>
+
+    <groupId>space.atnibam</groupId>
+    <artifactId>Semi-Artificial-Intelligence-Distributed-Cardinal</artifactId>
+    <version>0.0.1</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>saidc-common</module>
+        <module>saidc-gateway</module>
+        <module>saidc-api</module>
+        <module>saidc-modules</module>
+        <module>saidc-auth</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
+        <spring-boot-dependencies.version>3.1.4</spring-boot-dependencies.version>
+        <spring-boot-configuration-processor.version>2.6.13</spring-boot-configuration-processor.version>
+
+        <swagger.fox.version>3.0.0</swagger.fox.version>
+        <swagger.core.version>1.6.2</swagger.core.version>
+        <fastjson.version>2.0.14</fastjson.version>
+
+        <mybatis-plus.version>3.5.3.2</mybatis-plus.version>
+        <druid.version>1.1.22</druid.version>
+        <mysql.version>8.0.33</mysql.version>
+
+        <minio.version>8.0.3</minio.version>
+        <redisson.version>3.9.1</redisson.version>
+
+        <lombok.version>1.18.24</lombok.version>
+        <hutool.version>5.7.17</hutool.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <guava.version>30.1-jre</guava.version>
+        <gson.version>2.8.9</gson.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <knife4j-spring-ui.version>3.0.3</knife4j-spring-ui.version>
+        <SAIDC.version>0.0.1</SAIDC.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.fox.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-ui</artifactId>
+                <version>${knife4j-spring-ui.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- 生成自定义配置的元数据信息 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring-boot-configuration-processor.version}</version>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-swagger</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-security</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-redis</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-datasource</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>api-user</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-minio</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>modules-system</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>api-system</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-service-aop</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

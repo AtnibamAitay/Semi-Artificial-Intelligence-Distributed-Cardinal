@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>2.7.13</version>
     </parent>
 
     <groupId>space.atnibam</groupId>
@@ -28,9 +28,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
 
-        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
-        <spring-boot-dependencies.version>3.1.4</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>2.7.13</spring-boot-dependencies.version>
         <spring-boot-configuration-processor.version>2.6.13</spring-boot-configuration-processor.version>
 
         <swagger.fox.version>3.0.0</swagger.fox.version>
@@ -171,6 +171,12 @@
                 <artifactId>spring-boot-configuration-processor</artifactId>
                 <version>${spring-boot-configuration-processor.version}</version>
                 <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.0.0</version>
             </dependency>
 
             <dependency>

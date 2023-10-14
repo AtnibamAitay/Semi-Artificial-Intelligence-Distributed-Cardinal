@@ -2,7 +2,7 @@ package space.atnibam.common.core.constant;
 
 /**
  * @ClassName: ResultConstants
- * @Description:
+ * @Description: 结果常量
  * @Author: AtnibamAitay
  * @CreateTime: 2023/10/14 0014 16:26
  **/

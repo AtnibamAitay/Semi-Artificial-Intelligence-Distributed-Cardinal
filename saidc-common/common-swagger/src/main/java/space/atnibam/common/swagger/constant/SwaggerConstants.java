@@ -51,4 +51,14 @@ public class SwaggerConstants {
      */
     public static final String HEADER_TYPE = "header";
 
+    /**
+     * Swagger UI的访问路径
+     */
+    public static final String SWAGGER_UI_PATH = "/swagger-ui/**";
+
+    /**
+     * Swagger UI资源的位置
+     */
+    public static final String SWAGGER_UI_RESOURCE_LOCATION = "classpath:/META-INF/resources/webjars/springfox-swagger-ui/";
+
 }

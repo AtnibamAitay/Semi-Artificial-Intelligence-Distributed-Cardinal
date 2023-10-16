@@ -206,17 +206,12 @@
             </dependency>
             <dependency>
                 <groupId>space.atnibam</groupId>
-                <artifactId>common-minio</artifactId>
-                <version>${SAIDC.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>space.atnibam</groupId>
                 <artifactId>common-mybatis-plus</artifactId>
                 <version>${SAIDC.version}</version>
             </dependency>
             <dependency>
                 <groupId>space.atnibam</groupId>
-                <artifactId>modules-system</artifactId>
+                <artifactId>modules-minio</artifactId>
                 <version>${SAIDC.version}</version>
             </dependency>
             <dependency>

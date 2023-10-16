@@ -35,9 +35,7 @@
 
         <dependency>
             <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-<!--            <version>4.0.1</version>-->
-            <scope>provided</scope>
+            <artifactId>jakarta.servlet-api</artifactId><scope>provided</scope>
         </dependency>
 
         <dependency>

@@ -1,28 +1,23 @@
-server:
-  port: 6505
-
 spring:
-  application:
-    name: modules-system
   profiles:
     active: dev
 
   cloud:
     nacos:
-      server-addr: ip:port
+      server-addr: 192.168.160.1:6005
       discovery:
-        namespace: 09b73c2d-c1c4-441f-96da-ca528338c42a
+        namespace: 6d375c12-48f6-4fee-b615-8aee3209befa
       config:
         # 配置中心地址
-        server-addr: ip:port
+        server-addr: 192.168.160.1:6005
         # 配置文件格式
         file-extension: yml
         extension-configs:
-          - dataId: saidc-modules-system-application-dev.yml
+          - dataId: saidc-modules-minio-application-dev.yml
             group: DEFAULT_GROUP
         # 共享配置
         shared-configs:
           - dataId: saidc-share-application-dev.yml
             group: DEFAULT_GROUP
         # 命名空间
-        namespace: 09b73c2d-c1c4-441f-96da-ca528338c42a
+        namespace: 6d375c12-48f6-4fee-b615-8aee3209befa

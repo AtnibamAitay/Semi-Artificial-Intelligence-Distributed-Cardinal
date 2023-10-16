@@ -15,11 +15,11 @@
     <modules>
         <module>common-redis</module>
         <module>common-core</module>
-        <module>common-datasource</module>
         <module>common-log</module>
         <module>common-security</module>
         <module>common-swagger</module>
         <module>common-minio</module>
+        <module>common-mybatis-plus</module>
         <module>common-service-aop</module>
     </modules>
 

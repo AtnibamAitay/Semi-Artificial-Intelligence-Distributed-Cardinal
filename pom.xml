@@ -201,17 +201,17 @@
             </dependency>
             <dependency>
                 <groupId>space.atnibam</groupId>
-                <artifactId>common-datasource</artifactId>
-                <version>${SAIDC.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>space.atnibam</groupId>
                 <artifactId>api-user</artifactId>
                 <version>${SAIDC.version}</version>
             </dependency>
             <dependency>
                 <groupId>space.atnibam</groupId>
                 <artifactId>common-minio</artifactId>
+                <version>${SAIDC.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>space.atnibam</groupId>
+                <artifactId>common-mybatis-plus</artifactId>
                 <version>${SAIDC.version}</version>
             </dependency>
             <dependency>

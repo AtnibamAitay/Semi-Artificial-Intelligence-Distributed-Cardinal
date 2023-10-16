@@ -11,7 +11,7 @@
 
     <modules>
         <module>modules-user</module>
-        <module>modules-system</module>
+        <module>modules-minio</module>
     </modules>
 
     <packaging>pom</packaging>

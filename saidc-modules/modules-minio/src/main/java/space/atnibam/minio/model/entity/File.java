@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * @ClassName: Files
+ * @ClassName: File
  * @Description: 文件实体类
  * @Author: AtnibamAitay
  * @CreateTime: 2023/10/16 16:04
  **/
 @TableName(value ="files")
 @Data
-public class Files implements Serializable {
+public class File implements Serializable {
     /**
      * 文件ID（MD5值）
      */
@@ -46,7 +46,7 @@ public class Files implements Serializable {
     /**
      * 上传人
      */
-    private String userName;
+    private Integer userId;
 
     /**
      * 上传时间

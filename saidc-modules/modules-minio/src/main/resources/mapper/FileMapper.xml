@@ -2,15 +2,15 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="space.atnibam.minio.mapper.FilesMapper">
+<mapper namespace="space.atnibam.minio.mapper.FileMapper">
 
-    <resultMap id="BaseResultMap" type="space.atnibam.minio.model.entity.Files">
+    <resultMap id="BaseResultMap" type="space.atnibam.minio.model.entity.File">
             <id property="id" column="id" jdbcType="VARCHAR"/>
             <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
             <result property="bucket" column="bucket" jdbcType="VARCHAR"/>
             <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
-            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
             <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
             <result property="changeDate" column="change_date" jdbcType="TIMESTAMP"/>
             <result property="status" column="status" jdbcType="VARCHAR"/>
@@ -19,7 +19,7 @@
 
     <sql id="Base_Column_List">
         id,file_name,bucket,
-        file_path,url,user_name,
+        file_path,url,user_id,
         create_date,change_date,status,
         file_size
     </sql>

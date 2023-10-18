@@ -286,7 +286,7 @@ public class ServletUtils {
      * @return Mono<Void> 对象
      */
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, R.FAIL);
+        return webFluxResponseWriter(response, HttpStatus.OK, value, CommonConstants.FAIL);
     }
 
     /**
@@ -327,7 +327,7 @@ public class ServletUtils {
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        R<?> result = R.fail(code, value.toString());
+        R<?> result = R.failure(code, value.toString());
         DataBuffer dataBuffer = response.bufferFactory().wrap(JSON.toJSONString(result).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

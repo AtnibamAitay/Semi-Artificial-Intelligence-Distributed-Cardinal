@@ -281,14 +281,14 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     /**
      * 合并分块文件，并上传至MinIO，最后将文件信息写入数据库.
      *
-     * @param fileMd5             文件的MD5值
+     * @param md5                 文件的MD5值
      * @param chunkTotal          分块的总数目
      * @param uploadFileParamsDTO 上传文件的参数对象
      */
     @Override
-    public void mergeChunks(String fileMd5, int chunkTotal, UploadFileParamsDTO uploadFileParamsDTO) {
+    public void mergeChunks(String md5, int chunkTotal, UploadFileParamsDTO uploadFileParamsDTO) {
         // 下载分块文件
-        File[] chunkFiles = checkChunkStatus(fileMd5, chunkTotal, uploadFileParamsDTO.getBucket());
+        File[] chunkFiles = checkChunkStatus(md5, chunkTotal, uploadFileParamsDTO.getBucket());
 
         // 获取源文件名
         String fileName = uploadFileParamsDTO.getFileName();
@@ -304,19 +304,19 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
             throw new MinioException(MINIO_CREATE_MERGE_TEMP_FILE_ERROR);
         }
 
-        // 缓冲区
+        // 定义缓冲区
         byte[] buffer = new byte[1024];
 
         try {
-            // 写入流，向临时文件写入
-            try (RandomAccessFile raf_write = new RandomAccessFile(mergeFile, "rw")) {
+            // 创建写入流，向临时文件写入数据
+            try (RandomAccessFile rafWrite = new RandomAccessFile(mergeFile, "rw")) {
                 // 遍历分块文件数组
                 for (File chunkFile : chunkFiles) {
-                    // 读取流，读分块文件
-                    try (RandomAccessFile raf_read = new RandomAccessFile(chunkFile, "r")) {
+                    // 创建读取流，读取分块文件
+                    try (RandomAccessFile rafRead = new RandomAccessFile(chunkFile, "r")) {
                         int len;
-                        while ((len = raf_read.read(buffer)) != -1) {
-                            raf_write.write(buffer, 0, len);
+                        while ((len = rafRead.read(buffer)) != -1) {
+                            rafWrite.write(buffer, 0, len);
                         }
                     }
                 }
@@ -324,12 +324,13 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 throw new MinioException(MINIO_MERGE_FILE_ERROR);
             }
 
+            // 设置文件大小
             uploadFileParamsDTO.setFileSize(mergeFile.length());
 
             // 对文件进行校验，通过MD5值比较
             try (FileInputStream mergeInputStream = new FileInputStream(mergeFile)) {
                 String mergeMd5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(mergeInputStream);
-                if (!fileMd5.equals(mergeMd5)) {
+                if (!md5.equals(mergeMd5)) {
                     throw new MinioException(MINIO_MERGE_FILE_CHECK_ERROR);
                 }
 
@@ -338,7 +339,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 throw new MinioException(MINIO_MERGE_FILE_CHECK_EXCEPTION);
             }
 
-            String mergeFilePath = getFilePathByMd5(fileMd5, extension);
+            String mergeFilePath = getFilePathByMd5(md5, extension);
 
             // 将本地合并好的文件，上传到minio中，这里重载了一个方法
             uploadFileToMinio(mergeFile.getAbsolutePath(), uploadFileParamsDTO.getBucket(), mergeFilePath);
@@ -346,14 +347,12 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
             log.debug("合并文件上传至MinIO完成{}", mergeFile.getAbsolutePath());
 
             // 将文件信息写入数据库
-            FileInfo fileInfo = insertFileInfoToDB(uploadFileParamsDTO, mergeFilePath, fileMd5);
+            FileInfo fileInfo = insertFileInfoToDB(uploadFileParamsDTO, mergeFilePath, md5);
             if (fileInfo == null) {
                 throw new MinioException(MINIO_MEDIA_FILE_INSERT_ERROR);
             }
-
-            log.debug("媒资文件入库完成");
-
         } finally {
+            // 删除临时分块文件
             for (File chunkFile : chunkFiles) {
                 try {
                     chunkFile.delete();
@@ -362,6 +361,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 }
             }
 
+            // 删除合并后的临时文件
             try {
                 mergeFile.delete();
             } catch (Exception e) {
@@ -391,7 +391,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
 
             try {
                 // 创建临时的分块文件
-                chunkFile = File.createTempFile("chunk" + i, null);
+                chunkFile = File.createTempFile(CHUNK_SEPARATOR + i, null);
             } catch (Exception e) {
                 throw new MinioException(MINIO_CREATE_TEMP_FILE_ERROR);
             }
@@ -438,11 +438,11 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
     /**
      * 根据MD5和文件扩展名，生成文件路径，例 /2/f/2f6451sdg/2f6451sdg.mp4
      *
-     * @param fileMd5   文件MD5
+     * @param md5       文件MD5
      * @param extension 文件扩展名
      */
-    private String getFilePathByMd5(String fileMd5, String extension) {
-        return fileMd5.charAt(0) + "/" + fileMd5.charAt(1) + "/" + fileMd5 + "/" + fileMd5 + extension;
+    private String getFilePathByMd5(String md5, String extension) {
+        return md5.charAt(0) + SLASH_SEPARATOR + md5.charAt(1) + SLASH_SEPARATOR + md5 + SLASH_SEPARATOR + md5 + extension;
     }
 
 }

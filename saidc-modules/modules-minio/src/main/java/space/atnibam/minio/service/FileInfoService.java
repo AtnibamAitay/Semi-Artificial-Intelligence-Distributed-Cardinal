@@ -54,9 +54,9 @@ public interface FileInfoService extends IService<FileInfo> {
     /**
      * 合并分块文件，并上传至MinIO，最后将文件信息写入数据库.
      *
-     * @param fileMd5             文件的MD5值
+     * @param md5                 文件的MD5值
      * @param chunkTotal          分块的总数目
      * @param uploadFileParamsDTO 上传文件的参数对象
      */
-    void mergeChunks(String fileMd5, int chunkTotal, UploadFileParamsDTO uploadFileParamsDTO);
+    void mergeChunks(String md5, int chunkTotal, UploadFileParamsDTO uploadFileParamsDTO);
 }

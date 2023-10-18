@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import space.atnibam.common.core.domain.R;
 import space.atnibam.common.core.exception.MinioException;
 import space.atnibam.minio.model.dto.UploadFileParamsDTO;
-import space.atnibam.minio.service.FileService;
+import space.atnibam.minio.service.FileInfoService;
 import space.atnibam.minio.utils.FileServiceUtil;
 
 import javax.annotation.Resource;
@@ -31,10 +31,11 @@ import static space.atnibam.common.core.enums.ResultCode.MINIO_UPLOAD_ERROR;
 public class MinioController {
 
     @Resource
-    private FileService fileService;
+    private FileInfoService fileInfoService;
 
     /**
-     * 上传文件
+     * 一次性上传文件接口
+     * 适用于小文件
      *
      * @param files  文件
      * @param bucket 存储桶
@@ -42,7 +43,7 @@ public class MinioController {
      * @param folder 文件存储的文件夹，可以为空
      * @return 返回文件上传结果信息
      */
-    @ApiOperation("上传文件")
+    @ApiOperation("一次性上传文件接口")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public R upload(@RequestPart("files") MultipartFile files,
                     @RequestParam(value = "bucket") String bucket,
@@ -67,7 +68,7 @@ public class MinioController {
 
         try {
             // 调用服务层方法进行文件上传，并返回上传结果
-            String url = fileService.uploadFile(uploadFileParamsDTO, files.getBytes(), folder);
+            String url = fileInfoService.uploadFile(uploadFileParamsDTO, files.getBytes(), folder);
 
             log.info("文件上传成功，文件url：{}", url);
 

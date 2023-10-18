@@ -23,4 +23,8 @@ public class FileServiceConstants {
      * 文件后缀名分隔符
      */
     public static final String EXTENSION_SEPARATOR = ".";
+    /**
+     * "chunk"分隔符
+     */
+    public static final String CHUNK_SEPARATOR = "chunk";
 }

@@ -17,6 +17,11 @@ public enum ResultCode {
     SUCCESS(200, "成功", HttpStatus.OK),
 
     /**
+     * 失败状态码
+     */
+    FAIL(400, "失败", HttpStatus.BAD_REQUEST),
+
+    /**
      * 参数错误：1001-1999
      */
     PARAM_IS_INVALID(1001, "参数无效", HttpStatus.BAD_REQUEST),

@@ -108,7 +108,7 @@ public class MinioController {
     }
 
     /**
-     * 上传分块文件
+     * 上传分块后文件的单块
      *
      * @param file  分块文件
      * @param md5   文件的MD5值

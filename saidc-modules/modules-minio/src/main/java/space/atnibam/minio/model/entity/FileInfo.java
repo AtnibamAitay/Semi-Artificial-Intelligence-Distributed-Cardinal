@@ -14,7 +14,7 @@ import lombok.Data;
  * @Author: AtnibamAitay
  * @CreateTime: 2023/10/16 16:04
  **/
-@TableName(value ="files")
+@TableName(value ="file_info")
 @Data
 public class FileInfo implements Serializable {
     /**

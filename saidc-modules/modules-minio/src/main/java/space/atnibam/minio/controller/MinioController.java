@@ -72,12 +72,85 @@ public class MinioController {
 
             log.info("文件上传成功，文件url：{}", url);
 
-            return R.ok(url);
+            return R.success(url);
         } catch (IOException e) {
             log.error("文件上传失败，错误信息：{}", e.getMessage());
             // 如果在上传过程中发生错误，那么抛出自定义异常
             throw new MinioException(MINIO_UPLOAD_ERROR);
         }
+    }
+
+    /**
+     * 文件上传前检查文件
+     *
+     * @param md5 文件的MD5值
+     * @return 返回R对象，包含布尔类型结果表示文件是否已存在
+     */
+    @ApiOperation(value = "文件上传前检查文件")
+    @PostMapping("/upload/checkfile")
+    public R checkFile(@RequestParam("md5") String md5) {
+        return R.success(fileInfoService.checkFile(md5));
+    }
+
+    /**
+     * 分块文件上传前检查分块
+     *
+     * @param md5   文件的MD5值
+     * @param chunk 文件的块索引
+     * @return 返回R对象，包含布尔类型结果表示该分块是否已存在
+     */
+    @ApiOperation(value = "分块文件上传前检查分块")
+    @PostMapping("/upload/checkchunk")
+    public R checkChunk(@RequestParam("md5") String md5,
+                        @RequestParam("chunk") int chunk,
+                        @RequestParam("bucket") String bucket) {
+        return R.success(fileInfoService.checkChunk(md5, chunk, bucket));
+    }
+
+    /**
+     * 上传分块文件
+     *
+     * @param file  分块文件
+     * @param md5   文件的MD5值
+     * @param chunk 文件的块索引
+     * @return 返回R对象，具体内容根据实际业务定义
+     * @throws Exception 可能发生的异常
+     */
+    @ApiOperation(value = "上传分块文件")
+    @PostMapping("/upload/uploadchunk")
+    public R uploadChunk(@RequestParam("file") MultipartFile file,
+                         @RequestParam("md5") String md5,
+                         @RequestParam("chunk") int chunk, @RequestParam("bucket") String bucket) throws Exception {
+        return R.success(fileInfoService.uploadChunk(md5, chunk, file.getBytes(), bucket));
+    }
+
+    /**
+     * 合并分块文件
+     *
+     * @param md5        文件的MD5值
+     * @param fileName   文件名
+     * @param chunkTotal 分块总数
+     * @return 返回R对象，具体内容根据实际业务定义
+     * @throws IOException 可能发生的IO异常
+     */
+    @ApiOperation(value = "合并分块文件")
+    @PostMapping("/upload/mergechunks")
+    public R mergeChunks(@RequestParam("md5") String md5,
+                         @RequestParam("fileName") String fileName,
+                         @RequestParam("chunkTotal") int chunkTotal,
+                         @RequestParam("bucket") String bucket) {
+
+        // 创建一个新的文件上传参数对象
+        UploadFileParamsDTO uploadFileParamsDTO = UploadFileParamsDTO.builder()
+                // 设置文件名
+                .fileName(fileName)
+                // 设置桶
+                .bucket(bucket)
+                .build();
+
+        // 合并分块文件
+        fileInfoService.mergeChunks(md5, chunkTotal, uploadFileParamsDTO);
+        return R.success();
     }
 
 }

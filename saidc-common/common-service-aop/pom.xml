@@ -11,4 +11,27 @@
 
     <artifactId>common-service-aop</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>common-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>space.atnibam</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <!-- Apache Commons Codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+    </dependencies>
 </project>

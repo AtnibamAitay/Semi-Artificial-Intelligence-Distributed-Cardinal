@@ -55,6 +55,7 @@ public enum ResultCode {
     MESSAGE_SERVICE_ERROR(3003, "短信服务异常，请稍后重试", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_REPEAT(3004, "请求重复，请稍后再试", HttpStatus.TOO_MANY_REQUESTS),
     BUSINESS_ERROR(3005, "业务处理发生异常", HttpStatus.INTERNAL_SERVER_ERROR),
+    SERVER_LIMIT(3006,"服务器已限流", HttpStatus.TOO_MANY_REQUESTS),
 
     /**
      * MinIO错误：3301-3500

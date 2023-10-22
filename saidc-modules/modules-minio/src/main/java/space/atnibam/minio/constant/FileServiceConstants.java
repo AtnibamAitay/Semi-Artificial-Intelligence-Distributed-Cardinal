@@ -27,4 +27,14 @@ public class FileServiceConstants {
      * "chunk"分隔符
      */
     public static final String CHUNK_SEPARATOR = "chunk";
+
+    /**
+     * 任务状态：待处理
+     */
+    public static final String STATUS_SUCCESS = "2";
+
+    /**
+     * 任务状态：处理失败
+     */
+    public static final String STATUS_FAILURE = "3";
 }

@@ -27,11 +27,11 @@ public interface FileInfoService extends IService<FileInfo> {
     /**
      * 将文件上传到 MinIO 服务器
      *
-     * @param bytes      文件字节数组
-     * @param bucket     桶的名称
-     * @param objectName 对象名称
+     * @param filePath   需要上传的本地文件路径
+     * @param bucket     MinIO 的存储桶名称
+     * @param objectName 上传后在MinIO中的对象名，即文件路径
      */
-    void uploadFileToMinio(byte[] bytes, String bucket, String objectName);
+    void uploadFileToMinio(String filePath, String bucket, String objectName);
 
     /**
      * 检查文件是否存在

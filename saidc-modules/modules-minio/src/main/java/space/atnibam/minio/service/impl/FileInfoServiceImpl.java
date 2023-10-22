@@ -143,8 +143,7 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
      * @param bucket     桶的名称
      * @param objectName 对象名称
      */
-    @Override
-    public void uploadFileToMinio(byte[] bytes, String bucket, String objectName) {
+    private void uploadFileToMinio(byte[] bytes, String bucket, String objectName) {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
         try {
@@ -169,7 +168,8 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
      * @param bucket     MinIO 的存储桶名称
      * @param objectName 上传后在MinIO中的对象名，即文件路径
      */
-    private void uploadFileToMinio(String filePath, String bucket, String objectName) {
+    @Override
+    public void uploadFileToMinio(String filePath, String bucket, String objectName) {
         // 获取文件的 MIME 类型
         String contentType = getContentType(objectName);
 

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import space.atnibam.minio.model.dto.UploadFileParamsDTO;
 import space.atnibam.minio.model.entity.FileInfo;
 
+import java.io.File;
+
 /**
  * @ClassName: FileInfoService
  * @Description: 提供对媒资信息表（FileInfo）的数据库操作服务接口
@@ -21,6 +23,15 @@ public interface FileInfoService extends IService<FileInfo> {
      * @return 返回文件上传后的结果信息
      */
     String uploadFile(UploadFileParamsDTO uploadFileParamsDTO, byte[] bytes, String folder);
+
+    /**
+     * 将文件上传到 MinIO 服务器
+     *
+     * @param bytes      文件字节数组
+     * @param bucket     桶的名称
+     * @param objectName 对象名称
+     */
+    void uploadFileToMinio(byte[] bytes, String bucket, String objectName);
 
     /**
      * 检查文件是否存在
@@ -59,4 +70,22 @@ public interface FileInfoService extends IService<FileInfo> {
      * @param uploadFileParamsDTO 上传文件的参数对象
      */
     void mergeChunks(String md5, int chunkTotal, UploadFileParamsDTO uploadFileParamsDTO);
+
+    /**
+     * 从MinIO服务器下载文件.
+     *
+     * @param file       需要写入的文件
+     * @param bucket     MinIO的存储桶名称
+     * @param objectName MinIO中的对象名，即文件路径
+     * @return FileInfo 下载后的文件
+     */
+    File downloadFileFromMinio(File file, String bucket, String objectName);
+
+    /**
+     * 根据MD5和文件扩展名，生成文件路径，例 /2/f/2f6451sdg/2f6451sdg.mp4
+     *
+     * @param md5       文件MD5
+     * @param extension 文件扩展名
+     */
+    String getFilePathByMd5(String md5, String extension);
 }

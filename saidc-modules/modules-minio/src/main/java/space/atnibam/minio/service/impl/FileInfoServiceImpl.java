@@ -13,8 +13,10 @@ import org.springframework.util.DigestUtils;
 import space.atnibam.common.core.exception.MinioException;
 import space.atnibam.common.core.utils.text.StringUtils;
 import space.atnibam.minio.mapper.FileInfoMapper;
+import space.atnibam.minio.mapper.FileProcessMapper;
 import space.atnibam.minio.model.dto.UploadFileParamsDTO;
 import space.atnibam.minio.model.entity.FileInfo;
+import space.atnibam.minio.model.entity.FileProcess;
 import space.atnibam.minio.service.FileInfoService;
 import space.atnibam.minio.utils.FileServiceUtil;
 
@@ -22,6 +24,7 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.time.LocalDateTime;
 
+import static org.bouncycastle.asn1.cms.CMSAttributes.contentType;
 import static space.atnibam.common.core.enums.ResultCode.*;
 import static space.atnibam.minio.constant.FileServiceConstants.*;
 import static space.atnibam.minio.utils.FileServiceUtil.getContentType;
@@ -38,6 +41,9 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
 
     @Resource
     private FileInfoMapper fileInfoMapper;
+
+    @Resource
+    private FileProcessMapper fileProcessMapper;
 
     @Resource
     private MinioClient minioClient;
@@ -112,6 +118,19 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
                 //抛出异常，信息为："保存文件信息失败"
                 throw new MinioException(MINIO_SAVE_FILE_INFO_ERROR);
             }
+
+            // 如果是avi视频，将文件信息保存到待处理表
+            if ("video/x-msvideo".equals(contentType)) {
+                FileProcess fileProcess = new FileProcess();
+                // 将文件信息拷贝到待处理表中
+                BeanUtils.copyProperties(fileInfo, fileProcess);
+                // 未处理
+                fileProcess.setStatus("1");
+                int processInsert = fileProcessMapper.insert(fileProcess);
+                if (processInsert <= 0) {
+                    throw new MinioException(MINIO_SAVE_AVI_TO_PROCESS_ERROR);
+                }
+            }
         }
 
         return fileInfo;
@@ -124,7 +143,8 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
      * @param bucket     桶的名称
      * @param objectName 对象名称
      */
-    private void uploadFileToMinio(byte[] bytes, String bucket, String objectName) {
+    @Override
+    public void uploadFileToMinio(byte[] bytes, String bucket, String objectName) {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
         try {
@@ -414,7 +434,8 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
      * @param objectName MinIO中的对象名，即文件路径
      * @return FileInfo 下载后的文件
      */
-    private File downloadFileFromMinio(File file, String bucket, String objectName) {
+    @Override
+    public File downloadFileFromMinio(File file, String bucket, String objectName) {
         try (
                 // 创建文件输出流
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -441,7 +462,8 @@ public class FileInfoServiceImpl extends ServiceImpl<FileInfoMapper, FileInfo> i
      * @param md5       文件MD5
      * @param extension 文件扩展名
      */
-    private String getFilePathByMd5(String md5, String extension) {
+    @Override
+    public String getFilePathByMd5(String md5, String extension) {
         return md5.charAt(0) + SLASH_SEPARATOR + md5.charAt(1) + SLASH_SEPARATOR + md5 + SLASH_SEPARATOR + md5 + extension;
     }
 

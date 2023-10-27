@@ -215,11 +215,6 @@
 
             <dependency>
                 <groupId>space.atnibam</groupId>
-                <artifactId>common-ai</artifactId>
-                <version>${SAIDC.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>space.atnibam</groupId>
                 <artifactId>common-swagger</artifactId>
                 <version>${SAIDC.version}</version>
             </dependency>

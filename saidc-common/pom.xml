@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>common-ai</module>
         <module>common-redis</module>
         <module>common-core</module>
         <module>common-log</module>

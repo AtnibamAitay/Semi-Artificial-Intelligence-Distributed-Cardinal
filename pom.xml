@@ -15,11 +15,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>saidc-common</module>
+        <module>saidc-common-base</module>
         <module>saidc-gateway</module>
         <module>saidc-api</module>
         <module>saidc-modules</module>
         <module>saidc-auth</module>
+        <module>saidc-common-service</module>
     </modules>
 
     <properties>

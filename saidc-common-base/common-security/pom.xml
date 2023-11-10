@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.atnibam</groupId>
-        <artifactId>saidc-common</artifactId>
+        <artifactId>saidc-common-base</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <artifactId>common-log</artifactId>
+    <artifactId>common-security</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

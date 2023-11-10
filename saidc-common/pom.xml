@@ -13,14 +13,15 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>common-ai</module>
-        <module>common-redis</module>
-        <module>common-core</module>
-        <module>common-log</module>
-        <module>common-security</module>
-        <module>common-swagger</module>
-        <module>common-mybatis-plus</module>
-        <module>common-service-aop</module>
+        <module>common-base/common-redis</module>
+        <module>common-base/common-core</module>
+        <module>common-base/common-log</module>
+        <module>common-base/common-security</module>
+        <module>common-base/common-swagger</module>
+        <module>common-base/common-mybatis-plus</module>
+        <module>common-base/common-service-aop</module>
+
+        <module>common-lib/common-ai</module>
     </modules>
 
     <properties>
